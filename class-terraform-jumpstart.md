@@ -16,6 +16,8 @@
 
 ### @spkane
 
+![bg right](images/skane-2018-side-black-cropped.jpg)
+
 ---
 
 <!-- footer: Copyright © 2015-2019, Sean P. Kane (@spkane) -->
