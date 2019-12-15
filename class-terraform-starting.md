@@ -96,6 +96,13 @@ Proxies can interfere with some activities if they are not configured correctly.
 
 ---
 
+# Version 0.12
+
+* Version 0.12 of terraform was a major release that included many significant improvements, but also included some breaking changes.
+* Be aware that code written for terraform 0.12 is not compatible with earlier releases and that in general, you should not use not use older terraform binaries with existing terraform managed infrastructure.
+
+---
+
 # Code Setup
 
 ```shell
@@ -117,18 +124,109 @@ $ cd terraform-infrastructure
 
 ---
 
-# Terraform, Backends & Providers
+# HCL & JSON
 
-* Open `main.tf`
+* Hashicorp Configuration Language v2
+  * https://github.com/hashicorp/hcl/tree/hcl2
+* HCL is a JSON-compatible configuration language written by Hashicorp to be machine and human friendly.
+
+* HCL is intended to provide a less-verbose JSON style configuration language that supports comments, while also providing humans with a language that is easier to approach than YAML.
+
 
 ---
 
+# Terraform & Backends
 
+* Open `main.tf`
+  * Terraform block
+    * Define high-level requirements for this associated HCL. Terraform and provider version, etc.
+  * Backend block
+    * Define where remote state is stored and any information required to read and write it.
 
+---
 
+# Providers
 
+  * Providers
+    * Individual plugins that enable terraform to properly interact with an API.
+    * These can range between Hashicorp's officially supported providers to custom providers written by a single developer.
+    * In this example we are using the `aws` and `ns1` providers.
+      * https://github.com/terraform-providers/terraform-provider-aws
+      * https://github.com/terraform-providers/terraform-provider-ns1
 
+---
 
+# Variables
+
+* Open `variables.tf`
+  * Defines all the variables that you will be using and their default values.
+* You will get errors if you use variables that are not defined in this file.
+
+---
+
+# Data Sources
+
+* Open `data.tf`
+* Using output as input
+  * Remote Terraform State
+  * APIs
+  * Scripts
+    * Open `bin/local-ip.sh`
+  * etc
+
+---
+
+# Building Infrastructure
+
+* `key-pairs.tf`
+* `backend.tf`
+* `frontend.tf`
+* `security-groups.tf`
+
+---
+
+# Backend Service
+
+* Open `key-pairs.tf`
+  * SSH public key for system access
+* Open `backend.tf`
+  * Server Instance w/ basic provisioning
+  * Setup of `todo` backend service
+* The files in `./files` support the system provisioning.
+
+---
+
+# Frontend Infrastructure
+
+* Open `frontend.tf`
+  * S3 bucket (file share) for Load Balancer Logs
+    * Security Policy for access to S3 bucket
+  * Load Balancer for backend `todo` service
+    * Listener
+    * Target Group
+    * Target Group Attachment
+  * DNS record for load balancer
+
+---
+
+# Firewall Security
+
+* Open `security-groups.tf`
+  * SSH to the backend server
+  * Traffic between load balancer and `todo` service
+
+---
+
+# Outputs
+
+* Open `outputs.tf`
+  * Human and computer-readable data
+
+---
+
+# The Graph
+
+![bg](images/graph.png)
 
 ---
 
