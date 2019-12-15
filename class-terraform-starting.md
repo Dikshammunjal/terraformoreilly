@@ -226,7 +226,7 @@ $ cd terraform-infrastructure
 
 # The Graph
 
-![bg](images/graph.png)
+![bg contain](images/graph.png)
 
 ---
 
