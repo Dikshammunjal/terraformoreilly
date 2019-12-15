@@ -1,5 +1,5 @@
 
-<!-- $theme: spkane -->
+<!-- theme: spkane -->
 <!-- _class: lead -->
 
 <!-- $size: 16:9 -->
