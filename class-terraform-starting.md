@@ -230,6 +230,71 @@ $ cd terraform-infrastructure
 
 ---
 
+# The Setup
+
+* `terraform init`
+
+---
+
+# The Plan
+
+* `terraform plan`
+
+---
+
+# The Apply
+
+* `terraform apply`
+  * If all looks good, answer: 'yes'
+
+---
+
+# The Outputs
+
+* `terraform output`
+
+---
+
+# The State File
+
+* `terraform12 state list`
+* `terraform12 state show aws_instance.todo[0]`
+* `terraform12 state pull > ~/class-terraform-starting/state.json`
+* `less ~/class-terraform-starting/state.json`
+
+---
+
+# Examine the Server
+
+* `ssh -i ~/.ssh/oreilly_aws ubuntu@${todo_ip}`
+* `sudo systemctl status todo-list`
+* `exit`
+---
+
+# Test the Todo API
+
+* `cd ..`
+* `source ./bin/ip_vars.sh`
+* `curl -i http://todo-api.spkane.org:8080/`
+*  `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"go shopping","completed":false}'`
+* `curl -i http://todo-api.spkane.org:8080/`
+* `curl -i http://todo-api.spkane.org:8080/1 -X DELETE -H 'Content-Type: application/spkane.todo-list.v1+json'`
+* `curl -i http://todo-api.spkane.org:8080/`
+
+---
+
+
+
+---
+
+
+---
+
+
+---
+
+
+
 # What We Have Learned
 
 * Something
