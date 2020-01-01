@@ -245,7 +245,7 @@ $ cd terraform-infrastructure
 # The Apply
 
 * `terraform apply`
-  * If all looks good, answer: 'yes'
+  * If all looks good, answer: `yes`
 
 ---
 
@@ -259,16 +259,18 @@ $ cd terraform-infrastructure
 
 * `terraform12 state list`
 * `terraform12 state show aws_instance.todo[0]`
-* `terraform12 state pull > ~/class-terraform-starting/state.json`
-* `less ~/class-terraform-starting/state.json`
+* `terraform12 state pull > $HOME/class-terraform-starting/state.json`
+* `less $HOME/class-terraform-starting/state.json`
+* `rm $HOME/class-terraform-starting/state.json`
 
 ---
 
 # Examine the Server
 
-* `ssh -i ~/.ssh/oreilly_aws ubuntu@${todo_ip}`
+* `ssh -i $HOME/.ssh/oreilly_aws ubuntu@${todo_ip}`
 * `sudo systemctl status todo-list`
 * `exit`
+
 ---
 
 # Test the Todo API
@@ -283,27 +285,274 @@ $ cd terraform-infrastructure
 
 ---
 
+# Download the Todo Provider
 
-
----
-
-
----
-
+* Open in your web browser:
+  * https://github.com/spkane/todo-for-terraform/releases/tag/v1.0.0
+* Download the `terraform-provider-todo` archive for your platform.
 
 ---
 
+# Install the Todo Provider
 
+* `cd $HOME/Downloads`
+* `unzip terraform-provider-todo-*.zip`
+* `mv terraform-provider-todo ~/class-terraform-starting/todo-for-terraform/terraform-tests/`
+
+---
+
+# Using the Todo Provider
+
+* `cd $HOME/todo-for-terraform/`
+* `cp -a terraform-tests tf-code`
+* `cd $HOME/todo-for-terraform/tf-code`
+* Open `main.tf`
+  * Configure the todo provider
+    * Change `host = "127.0.0.1"` to `host = "todo-api.spkane.org"`
+  * Create 5 new todos
+  * Read 1 existing todo as a data source
+  * Create 5 more new todos based on the data source
+
+---
+
+# The Outputs
+
+* Open `outputs.tf`
+  * Prints the IDs for all of the new todos
+
+---
+
+# Prepare the Data
+
+* We need a todo with ID 1 to read in as an example data source
+* `curl -i http://todo-api.spkane.org:8080/`
+* `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"go shopping","completed":false}'`
+
+---
+
+# macOS Catalina+ Notice
+
+* You may need to whitelist the provider binary, since it is not signed.
+  * Run `./terraform-provider-todo`
+    * Click `Cancel`
+  * Go to `System Preferences` → `Security & Privacy` → `General`
+    * Click `Allow Anyway`
+  * Run `./terraform-provider-todo`
+    * Click `Open`
+
+---
+
+# Apply Terraform Code
+
+* `terraform init`
+* `terrraform apply`
+  * **Plan**: 10 to add, 0 to change, 0 to destroy.
+    * If all looks good, answer: `yes`
+
+---
+
+# Examine the Outputs
+
+* `terraform output`
+
+* You may notice that your IDs are likely not in order. This is because, by default terraform creates many of the resources in parallel and we have many students using the server at the same time.
+
+---
+
+# Examine The State File
+
+* Examine the state from one of the resulting todos
+  * `state show todo.test1[0]`
+
+  ```terraform
+  # todo.test1[0]:
+  resource "todo" "test1" {
+      completed   = false
+      description = "0-1 test todo"
+      id          = "6"
+  }
+  ```
+
+---
+
+# The Real Object
+
+* From the output of the last command, grab the ID and use it at the end of this command.
+* `curl -i http://todo-api.spkane.org:8080/6`
+
+```json
+HTTP/1.1 200 OK
+Date: Wed, 01 Jan 2020 20:13:45 GMT
+Content-Type: application/spkane.todo-list.v1+json
+Content-Length: 59
+Connection: keep-alive
+
+[{"completed":false,"description":"0-1 test todo","id":6}]
+```
+
+---
+
+# Updating Objects
+
+* Change the 2 `count = 5` lines to read `count = 4`
+* Add `(updated)` to the end of the first description string.
+
+---
+
+# Code With Edits
+
+```terraform
+resource "todo" "test1" {
+  count = 4
+  description = "${count.index}-1 test todo (updated)"
+  completed = false
+}
+
+resource "todo" "test2" {
+  count = 4
+  description = "${count.index}-2 test todo (linked to ${data.todo.foreign.id})"
+  completed = false
+}
+```
+
+---
+
+# Examine The First & Last Todo
+
+* `terraform state show todo.test1[0]`
+* `terraform state show todo.test1[4]`
+
+---
+
+# Apply The Updates
+
+* `terrraform apply`
+  * **Plan**: 0 to add, 4 to change, 2 to destroy.
+    * If all looks good, answer: `yes`
+
+---
+
+# Re-examine The First & Last Todo
+
+* `terraform state show todo.test1[0]`
+  * The description should now be updated.
+* `terraform state show todo.test1[4]`
+  * This should give you and error since it has now been deleted.
+* `terraform state show todo.test1[3]` will work since we only have 4 todos now.
+
+---
+
+# Prepare to Import
+
+* Create a new todo by hand
+  * `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"Imported Todo","completed":false}'`
+  * Note the ID in your output (*13* in this example): `{"completed":false,"description":"Imported Todo","id":13}`
+
+---
+
+# Modify The Code
+
+* In `main.tf` add:
+
+```terraform
+resource "todo" "imported" {
+  description = "Imported Todo"
+  completed = false
+}
+```
+
+---
+
+# Run a Plan
+
+* `terraform plan`
+
+```terraform
+  # todo.imported will be created
+  + resource "todo" "imported" {
+      + completed   = false
+      + description = "Imported Todo"
+      + id          = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+```
+
+---
+
+# Import a Pre-Existing Todo
+
+* Import the ID of the Todo that you just created.
+  * `terraform import todo.imported[0] 13`
+
+---
+
+# Re-run the Plan
+
+* `terraform plan`
+
+```terraform
+No changes. Infrastructure is up-to-date.
+```
+
+---
+
+# Rename a Resource
+
+* In `main.tf`:
+  * change the line `resource "todo" "imported" {` to read `resource "todo" "primary" {`
+* Run `terraform plan`
+  * You should see
+    * **Plan**: 1 to add, 0 to change, 1 to destroy.
+* This would delete one todo and create a new one.
+  * This is not what we want.
+
+---
+
+# Manipulating State
+
+* `terraform state mv todo.imported todo.primary`
+* Run `terraform plan`
+  * You should see
+    * No changes. Infrastructure is up-to-date.
+* By moving the state of the existing resource to the new name, everything lines back up properly.
+
+---
+
+# Destroy the Todos
+
+* `terraform destroy`
+  * **Plan**: 0 to add, 0 to change, 9 to destroy.
+    * If all looks good, answer: `yes`
+
+---
+
+Destroy the Infrastructure
+
+* `cd ../terraform-infrastructure/`
+* `terraform destroy`
+  * If all looks good, answer: `yes`
+
+---
 
 # What We Have Learned
 
-* Something
+* How to install Terraform
+* The primary use case for Terraform
+* How to install a provider and what they are for
+* Creating, reading, updating, and deleting objects
+* Reading data sources
+* Importing existing objects
+* What the Terraform state is
+* and more...
 
 ---
 
 # Additional Reading
 
-* Something
+* [Terraform: Up & Running](https://www.terraformupandrunning.com/)
+* [Terraform Documentation](https://www.terraform.io/docs/index.html)
+
 ---
 
 <!-- _class: lead -->
@@ -311,7 +560,7 @@ $ cd terraform-infrastructure
 # Additional Learning Resources
 
 
-## https://www.safaribooksonline.com/
+## https://learning.oreilly.com/
 
 ---
 
