@@ -315,6 +315,13 @@ $ cd terraform-infrastructure
 
 ---
 
+# Defining Variables
+
+* Open `variables.tf`
+  * This is where we define variables we will use in the terraform code.
+
+---
+
 # Using the Todo Provider
 
 * Open `main.tf`
@@ -326,7 +333,7 @@ $ cd terraform-infrastructure
 
 ---
 
-# The Outputs
+# Defining Outputs
 
 * Open `outputs.tf`
   * Prints the IDs for all of the new todos
