@@ -574,7 +574,10 @@ module "series-data" {
     number       = 5
     purpose      = "testing"
     team_name    = "oreilly"
-    descriptions = ["my first completed todo", "my second completed todo", "my third completed todo", "my fourth completed todo", "my fifth completed todo"]
+    descriptions = ["my first completed todo", "my second completed todo",
+                    "my third completed todo", "my fourth completed todo",
+                    "my fifth completed todo"
+                   ]
 }
 ```
 
