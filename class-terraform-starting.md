@@ -20,7 +20,7 @@
 
 ---
 
-<!-- footer: Copyright © 2015-2019, Sean P. Kane (@spkane) -->
+<!-- footer: Copyright © 2015-2020, Sean P. Kane (@spkane) -->
 <!-- paginate: true -->
 <!-- _class: lead -->
 
@@ -145,14 +145,19 @@ $ cd terraform-infrastructure
 
 ---
 
-# Providers
+# Providers (1 of 2)
 
-  * Providers
-    * Individual plugins that enable terraform to properly interact with an API.
-    * These can range between Hashicorp's officially supported providers to custom providers written by a single developer.
-    * In this example we are using the `aws` and `ns1` providers.
-      * https://github.com/terraform-providers/terraform-provider-aws
-      * https://github.com/terraform-providers/terraform-provider-ns1
+* Providers
+  * Individual plugins that enable terraform to properly interact with an API.
+  * These can range between Hashicorp's officially supported providers to custom providers written by a single developer.
+
+---
+
+# Providers (2 of 2)
+
+* In this example we are using the `aws` and `ns1` providers.
+  * https://github.com/terraform-providers/terraform-provider-aws
+  * https://github.com/terraform-providers/terraform-provider-ns1
 
 ---
 
@@ -270,12 +275,12 @@ $ cd terraform-infrastructure
 * `ssh -i $HOME/.ssh/oreilly_aws ubuntu@${todo_ip}`
 * `sudo systemctl status todo-list`
 * `exit`
+* `cd ..`
 
 ---
 
 # Test the Todo API
 
-* `cd ..`
 * `source ./bin/ip_vars.sh`
 * `curl -i http://todo-api.spkane.org:8080/`
 *  `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"go shopping","completed":false}'`
@@ -295,17 +300,23 @@ $ cd terraform-infrastructure
 
 # Install the Todo Provider
 
-* `cd $HOME/Downloads`
+* `cd $HOME/Downloads` # or where ever you downloaded the archive to.
 * `unzip terraform-provider-todo-*.zip`
-* `mv terraform-provider-todo ~/class-terraform-starting/todo-for-terraform/terraform-tests/`
+* `mv terraform-provider-todo $HOME/class-terraform-starting/todo-for-terraform/terraform-tests/`
+
+---
+
+# Copy the Code
+
+* `cd $HOME/class-terraform-starting/todo-for-terraform`
+* `mkdir -p tf-code`
+* `cp -a terraform-tests tf-code`
+* `cd ./tf-code/terraform-tests`
 
 ---
 
 # Using the Todo Provider
 
-* `cd $HOME/todo-for-terraform/`
-* `cp -a terraform-tests tf-code`
-* `cd $HOME/todo-for-terraform/tf-code`
 * Open `main.tf`
   * Configure the todo provider
     * Change `host = "127.0.0.1"` to `host = "todo-api.spkane.org"`
@@ -437,8 +448,8 @@ resource "todo" "test2" {
 * `terraform state show todo.test1[0]`
   * The description should now be updated.
 * `terraform state show todo.test1[4]`
-  * This should give you and error since it has now been deleted.
-* `terraform state show todo.test1[3]` will work since we only have 4 todos now.
+  * This should give you an error since it has now been deleted.
+* `terraform state show todo.test1[3]` will work however, since we only have 4 todos now.
 
 ---
 
@@ -466,6 +477,7 @@ resource "todo" "imported" {
 # Run a Plan
 
 * `terraform plan`
+  * You should see: **Plan**: 1 to add, 0 to change, 0 to destroy.
 
 ```terraform
   # todo.imported will be created
@@ -474,8 +486,6 @@ resource "todo" "imported" {
       + description = "Imported Todo"
       + id          = (known after apply)
     }
-
-Plan: 1 to add, 0 to change, 0 to destroy.
 ```
 
 ---
@@ -490,10 +500,8 @@ Plan: 1 to add, 0 to change, 0 to destroy.
 # Re-run the Plan
 
 * `terraform plan`
-
-```terraform
-No changes. Infrastructure is up-to-date.
-```
+  * You should see
+    * **No changes. Infrastructure is up-to-date.**
 
 ---
 
@@ -514,8 +522,85 @@ No changes. Infrastructure is up-to-date.
 * `terraform state mv todo.imported todo.primary`
 * Run `terraform plan`
   * You should see
-    * No changes. Infrastructure is up-to-date.
+    * **No changes. Infrastructure is up-to-date.**
 * By moving the state of the existing resource to the new name, everything lines back up properly.
+
+---
+
+# Terraform Modules
+
+* Blocks of re-useable Terraform code w/ inputs and outputs
+* `cd ..`
+* `cp -a ../__modules .`
+* `cd __modules/todo-test-data`
+
+---
+
+# Module Variables
+
+* Open `variables.tf`
+  * This files defines all the variables that the module uses and any default values.
+
+---
+
+# The Main Module Code
+
+* Open `main.tf`
+  * This files will allow us to easily create two set of todos matching our specific requirements.
+
+---
+
+# Module Outputs
+
+* Open `outputs.tf`
+  * If you think of modules like functions then outputs are return values.
+
+---
+
+# Prepare to Use the Module
+
+* `cd ../../code/`
+* Open `main.tf`
+
+---
+
+# Utilize the Module (1 of 2)
+
+* Add:
+
+```terraform
+module "series-data" {
+    source       = "../__modules/todo-test-data"
+    number       = 5
+    purpose      = "testing"
+    team_name    = "oreilly"
+    descriptions = ["my first completed todo", "my second completed todo", "my third completed todo", "my fourth completed todo", "my fifth completed todo"]
+}
+```
+
+---
+
+# Utilize the Module (2 of 2)
+
+* Open `outputs.tf`
+* Add:
+
+```terraform
+output "first_series_ids" {
+  value = "${module.series-data.first_series_ids}"
+}
+
+output "second_series_ids" {
+  value = "${module.series-data.second_series_ids}"
+}
+```
+
+---
+
+# Apply the Module
+
+* `terraform apply`
+  * If all looks good, answer: `yes`
 
 ---
 
@@ -527,7 +612,7 @@ No changes. Infrastructure is up-to-date.
 
 ---
 
-Destroy the Infrastructure
+# Destroy the Infrastructure
 
 * `cd ../terraform-infrastructure/`
 * `terraform destroy`
@@ -541,12 +626,14 @@ Destroy the Infrastructure
 * The primary use case for Terraform
 * How to install a provider and what they are for
 * Creating, reading, updating, and deleting objects
-* Reading data sources
-* Importing existing objects
+* Reading data sources & importing existing objects
+* Making & using modules
 * What the Terraform state is
 * and more...
 
 ---
+
+<!-- _class: lead -->
 
 # Additional Reading
 
