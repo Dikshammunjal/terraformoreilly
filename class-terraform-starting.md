@@ -647,8 +647,8 @@ output "second_series_ids" {
 
 # Additional Reading
 
-* [Terraform: Up & Running](https://www.terraformupandrunning.com/)
-* [Terraform Documentation](https://www.terraform.io/docs/index.html)
+[Terraform: Up & Running](https://www.terraformupandrunning.com/)
+[Terraform Documentation](https://www.terraform.io/docs/index.html)
 
 ---
 
