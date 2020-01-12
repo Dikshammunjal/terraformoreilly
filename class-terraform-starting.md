@@ -110,7 +110,7 @@ $ cd ${HOME}
 $ mkdir class-terraform-starting
 $ cd ${HOME}/class-terraform-starting
 $ git clone https://github.com/spkane/todo-for-terraform \
-  --config core.autocrlf=input
+    --config core.autocrlf=input
 $ cd todo-for-terraform
 ```
 
@@ -262,11 +262,14 @@ $ cd terraform-infrastructure
 
 # The State File
 
-* `terraform12 state list`
-* `terraform12 state show aws_instance.todo[0]`
-* `terraform12 state pull > $HOME/class-terraform-starting/state.json`
-* `less $HOME/class-terraform-starting/state.json`
-* `rm $HOME/class-terraform-starting/state.json`
+```
+$ terraform state list
+$ terraform state show aws_instance.todo[0]
+$ terraform state pull > \
+    $HOME/class-terraform-starting/state.json
+$ less $HOME/class-terraform-starting/state.json
+$ rm $HOME/class-terraform-starting/state.json
+```
 
 ---
 
@@ -281,12 +284,17 @@ $ cd terraform-infrastructure
 
 # Test the Todo API
 
-* `source ./bin/ip_vars.sh`
-* `curl -i http://todo-api.spkane.org:8080/`
-*  `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"go shopping","completed":false}'`
-* `curl -i http://todo-api.spkane.org:8080/`
-* `curl -i http://todo-api.spkane.org:8080/1 -X DELETE -H 'Content-Type: application/spkane.todo-list.v1+json'`
-* `curl -i http://todo-api.spkane.org:8080/`
+```
+$ source ./bin/ip_vars.sh
+$ curl -i http://todo-api.spkane.org:8080/
+$ curl -i http://todo-api.spkane.org:8080/ -X POST \
+    -H 'Content-Type: application/spkane.todo-list.v1+json' \
+    -d '{"description":"go shopping","completed":false}'
+$ curl -i http://todo-api.spkane.org:8080/
+$ curl -i http://todo-api.spkane.org:8080/1 -X DELETE \
+    -H 'Content-Type: application/spkane.todo-list.v1+json'
+$ curl -i http://todo-api.spkane.org:8080/
+```
 
 ---
 
@@ -300,9 +308,14 @@ $ cd terraform-infrastructure
 
 # Install the Todo Provider
 
-* `cd $HOME/Downloads` # or where ever you downloaded the archive to.
-* `unzip terraform-provider-todo-*.zip`
-* `mv terraform-provider-todo $HOME/class-terraform-starting/todo-for-terraform/terraform-tests/`
+* `cd $HOME/Downloads`
+  * or where ever you downloaded the archive to.
+
+```
+$ unzip terraform-provider-todo-*.zip
+$ mv terraform-provider-todo \
+    $HOME/class-terraform-starting/todo-for-terraform/terraform-tests/
+```
 
 ---
 
@@ -342,9 +355,14 @@ $ cd terraform-infrastructure
 
 # Prepare the Data
 
-* We need a todo with ID 1 to read in as an example data source
-* `curl -i http://todo-api.spkane.org:8080/`
-* `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"go shopping","completed":false}'`
+* We need a todo with ID 1 to read in as an example data source:
+
+```
+curl -i http://todo-api.spkane.org:8080/
+curl -i http://todo-api.spkane.org:8080/ -X POST \
+    -H 'Content-Type: application/spkane.todo-list.v1+json' \
+    -d '{"description":"go shopping","completed":false}'
+```
 
 ---
 
@@ -462,8 +480,14 @@ resource "todo" "test2" {
 
 # Prepare to Import
 
-* Create a new todo by hand
-  * `curl -i http://todo-api.spkane.org:8080/ -X POST -H 'Content-Type: application/spkane.todo-list.v1+json' -d '{"description":"Imported Todo","completed":false}'`
+* Create a new todo by hand:
+
+```
+$ curl -i http://todo-api.spkane.org:8080/ -X POST \
+    -H 'Content-Type: application/spkane.todo-list.v1+json' \
+    -d '{"description":"Imported Todo","completed":false}'
+```
+
   * Note the ID in your output (*13* in this example): `{"completed":false,"description":"Imported Todo","id":13}`
 
 ---
