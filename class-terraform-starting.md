@@ -7,6 +7,11 @@
 # Terraform
 ## Getting Started
 
+<br></br>
+<br></br>
+
+###### Release %BUILD_RELEASE%
+
 ---
 
 <!-- _class: lead -->
