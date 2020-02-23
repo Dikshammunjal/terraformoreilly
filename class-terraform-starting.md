@@ -638,6 +638,8 @@ output "second_series_ids" {
 
 # Apply the Module
 
+* `terraform init`
+  * Initialize/download the module.
 * `terraform apply`
   * If all looks good, answer: `yes`
 
