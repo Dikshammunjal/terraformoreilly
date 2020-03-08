@@ -78,11 +78,21 @@ Proxies can interfere with some activities if they are not configured correctly.
 
 ---
 
-# Definition
+# Terraform Definition
 
 * **ter·ra·form**
 * */ˈterəˌfôrm/*
   * (verb) to alter a planet for the purpose of sustaining life
+
+---
+
+# Todo Definition
+
+* As a helpful `reminder`, I keep a written list of things that I need `to do` later.
+
+* **ri-mahyn-der**
+* */rɪˈmaɪn dər/*
+  * (noun) a person or thing that serves to remind.
 
 ---
 
