@@ -147,106 +147,17 @@ $ cd terraform-infrastructure
 
 * HCL is intended to provide a less-verbose JSON style configuration language that supports comments, while also providing humans with a language that is easier to approach than YAML.
 
-
 ---
 
-# Terraform & Backends
+# Core Components
 
-* Open `main.tf`
-  * Terraform block
-    * Define high-level requirements for this associated HCL. Terraform and provider version, etc.
-  * Backend block
-    * Define where remote state is stored and any information required to read and write it.
-
----
-
-# Providers (1 of 2)
-
+* Terraform & Backends
 * Providers
-  * Individual plugins that enable terraform to properly interact with an API.
-  * These can range between Hashicorp's officially supported providers to custom providers written by a single developer.
-
----
-
-# Providers (2 of 2)
-
-* In this example we are using the `aws` and `ns1` providers.
-  * https://github.com/terraform-providers/terraform-provider-aws
-  * https://github.com/terraform-providers/terraform-provider-ns1
-
----
-
-# Variables
-
-* Open `variables.tf`
-  * Defines all the variables that you will be using and their default values.
-* You will get errors if you use variables that are not defined in this file.
-
----
-
-# Data Sources
-
-* Open `data.tf`
-* Using output as input
-  * Remote Terraform State
-  * APIs
-  * Scripts
-    * Open `bin/local-ip.sh`
-  * etc
-
----
-
-# Building Infrastructure
-
-* `key-pairs.tf`
-* `backend.tf`
-* `frontend.tf`
-* `security-groups.tf`
-
----
-
-# Backend Service
-
-* Open `key-pairs.tf`
-  * SSH public key for system access
-* Open `backend.tf`
-  * Server Instance w/ basic provisioning
-  * Setup of `todo` backend service
-* The files in `./files` support the system provisioning.
-
----
-
-# Frontend Infrastructure
-
-* Open `frontend.tf`
-  * S3 bucket (file share) for Load Balancer Logs
-    * Security Policy for access to S3 bucket
-  * Load Balancer for backend `todo` service
-    * Listener
-    * Target Group
-    * Target Group Attachment
-  * DNS record for load balancer
-
----
-
-# Firewall Security
-
-* Open `security-groups.tf`
-  * SSH to the backend server
-  * Traffic between load balancer and `todo` service
-
----
-
-# Outputs
-
-* Open `outputs.tf`
-  * Human and computer-readable data
-
----
-
-# The Graph
-
-![bg contain](images/graph.png)
+* Variables
+* Resources
+* Data Sources
+* Outputs
+* State File
 
 ---
 
@@ -277,14 +188,7 @@ $ cd terraform-infrastructure
 
 # The State File
 
-```
-$ terraform state list
-$ terraform state show aws_instance.todo[0]
-$ terraform state pull > \
-    $HOME/class-terraform-starting/state.json
-$ less $HOME/class-terraform-starting/state.json
-$ rm $HOME/class-terraform-starting/state.json
-```
+* `terraform state list`
 
 ---
 
@@ -410,7 +314,7 @@ curl -i http://todo-api.spkane.org:8080/ -X POST \
 
 ---
 
-# Examine The State File
+# Examine todo.test1[0]
 
 * Examine the state from one of the resulting todos
   * `state show todo.test1[0]`
@@ -423,6 +327,17 @@ curl -i http://todo-api.spkane.org:8080/ -X POST \
       id          = "6"
   }
   ```
+
+---
+
+# The Complete State File
+
+```shell
+$ terraform state pull > \
+    $HOME/class-terraform-starting/state.json
+$ less $HOME/class-terraform-starting/state.json
+$ rm $HOME/class-terraform-starting/state.json
+```
 
 ---
 
@@ -468,10 +383,13 @@ resource "todo" "test2" {
 
 ---
 
-# Examine The First & Last Todo
+# Examine The Results
 
-* `terraform state show todo.test1[0]`
-* `terraform state show todo.test1[4]`
+```shell
+$ terraform state show todo.test1[0]
+$ terraform state show todo.test1[4]
+
+```
 
 ---
 
@@ -660,6 +578,111 @@ output "second_series_ids" {
 * `terraform destroy`
   * **Plan**: 0 to add, 0 to change, 9 to destroy.
     * If all looks good, answer: `yes`
+
+---
+<!-- _class: lead -->
+
+# Building Real World Infrastructure
+
+---
+
+# Terraform & Backends
+
+* Open `main.tf`
+  * Terraform block
+    * Define high-level requirements for this associated HCL. Terraform and provider version, etc.
+  * Backend block
+    * Define where remote state is stored and any information required to read and write it.
+
+---
+
+# Providers (1 of 2)
+
+* Providers
+  * Individual plugins that enable terraform to properly interact with an API.
+  * These can range between Hashicorp's officially supported providers to custom providers written by a single developer.
+
+---
+
+# Providers (2 of 2)
+
+* In this example we are using the `aws` and `ns1` providers.
+  * https://github.com/terraform-providers/terraform-provider-aws
+  * https://github.com/terraform-providers/terraform-provider-ns1
+
+---
+
+# Variables
+
+* Open `variables.tf`
+  * Defines all the variables that you will be using and their default values.
+* You will get errors if you use variables that are not defined in this file.
+
+---
+
+# Data Sources
+
+* Open `data.tf`
+* Using output as input
+  * Remote Terraform State
+  * APIs
+  * Scripts
+    * Open `bin/local-ip.sh`
+  * etc
+
+---
+
+# Building Infrastructure
+
+* `key-pairs.tf`
+* `backend.tf`
+* `frontend.tf`
+* `security-groups.tf`
+
+---
+
+# Backend Service
+
+* Open `key-pairs.tf`
+  * SSH public key for system access
+* Open `backend.tf`
+  * Server Instance w/ basic provisioning
+  * Setup of `todo` backend service
+* The files in `./files` support the system provisioning.
+
+---
+
+# Frontend Infrastructure
+
+* Open `frontend.tf`
+  * S3 bucket (file share) for Load Balancer Logs
+    * Security Policy for access to S3 bucket
+  * Load Balancer for backend `todo` service
+    * Listener
+    * Target Group
+    * Target Group Attachment
+  * DNS record for load balancer
+
+---
+
+# Firewall Security
+
+* Open `security-groups.tf`
+  * SSH to the backend server
+  * Traffic between load balancer and `todo` service
+
+---
+
+# Outputs
+
+* Open `outputs.tf`
+  * Human and computer-readable data
+
+---
+
+# The Graph
+
+![bg contain](images/graph.png)
 
 ---
 
