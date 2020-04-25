@@ -580,9 +580,10 @@ output "second_series_ids" {
     * If all looks good, answer: `yes`
 
 ---
-<!-- _class: lead -->
 
-# Building Real World Infrastructure
+# Real World Infrastructure
+
+* `cd terraform-infrastructure`
 
 ---
 
@@ -688,7 +689,6 @@ output "second_series_ids" {
 
 # Destroy the Infrastructure
 
-* `cd ../terraform-infrastructure/`
 * `terraform destroy`
   * If all looks good, answer: `yes`
 
