@@ -204,7 +204,6 @@ $ cd terraform-infrastructure
 # Test the Todo API
 
 ```
-$ source ./bin/ip_vars.sh
 $ curl -i http://todo-api.spkane.org:8080/
 $ curl -i http://todo-api.spkane.org:8080/ -X POST \
     -H 'Content-Type: application/spkane.todo-list.v1+json' \
@@ -317,7 +316,8 @@ curl -i http://todo-api.spkane.org:8080/ -X POST \
 # Examine todo.test1[0]
 
 * Examine the state from one of the resulting todos
-  * `state show todo.test1[0]`
+  * `terraform state list`
+  * `terraform state show todo.test1[0]`
 
   ```terraform
   # todo.test1[0]:
@@ -383,7 +383,7 @@ resource "todo" "test2" {
 
 ---
 
-# Examine The Results
+# Examine The Current State
 
 ```shell
 $ terraform state show todo.test1[0]
@@ -401,7 +401,7 @@ $ terraform state show todo.test1[4]
 
 ---
 
-# Re-examine The First & Last Todo
+# Re-examine The State
 
 * `terraform state show todo.test1[0]`
   * The description should now be updated.
@@ -523,7 +523,7 @@ resource "todo" "imported" {
 
 # Prepare to Use the Module
 
-* `cd ../../code/`
+* `cd ../../terraform-tests/`
 * Open `main.tf`
 
 ---
