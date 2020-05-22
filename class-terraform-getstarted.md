@@ -1,8 +1,11 @@
-
+---
+marp: true
+theme: spkane
+---
 <!-- theme: spkane -->
 <!-- _class: lead -->
 
-<!-- $size: 16:9 -->
+<!-- size: 16:9 -->
 
 # Terraform
 ## Getting Started
@@ -71,7 +74,7 @@ Proxies can interfere with some activities if they are not configured correctly.
 # Instructor Environment
 * **Operating System**: Mac OS X (v10.15.X+)
 * **Terminal**: iTerm2 (Build 3.X.X+) - https://www.iterm2.com/
-* **Shell Customization**: Bash-it - https://github.com/Bash-it/bash-it
+* **Browser Extension**: Dark Reader - https://darkreader.org/
 * **Shell Prompt Theme**: Starship - https://starship.rs/
 * **Shell Prompt Font**: Fira Code - https://github.com/tonsky/FiraCode
 * **Text Editor**: Visual Studio Code (v1.X.X+) - https://code.visualstudio.com/
