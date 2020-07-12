@@ -28,7 +28,7 @@ theme: spkane
 
 ---
 
-<!-- footer: Copyright © 2015-2020, Sean P. Kane (@spkane) -->
+<!-- footer: Copyright © 2019-2020, Sean P. Kane (@spkane) -->
 <!-- paginate: true -->
 <!-- _class: lead -->
 
@@ -197,6 +197,7 @@ $ cd terraform-infrastructure
 
 # Examine the Server
 
+* `. ./bin/ip_vars.sh`
 * `ssh -i $HOME/.ssh/oreilly_aws ubuntu@${todo_ip}`
 * `sudo systemctl status todo-list`
 * `exit`
@@ -732,7 +733,7 @@ output "second_series_ids" {
 
 # Student Survey
 
-**Please take a moment to fill out the class survey linked to in the chat channel.**
+**Please take a moment to fill out the class survey linked to from the bottom of the ON24 audience screen.**
 
 O’Reilly and I value your comments about the class.
 
