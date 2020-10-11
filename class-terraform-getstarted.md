@@ -223,7 +223,7 @@ $ curl -i http://todo-api.spkane.org:8080/
 # Download the Todo Provider
 
 * Open in your web browser:
-  * https://github.com/spkane/todo-for-terraform/releases/tag/v1.0.0
+  * https://github.com/spkane/todo-for-terraform/releases/tag/v1.1.0
 * Download the `terraform-provider-todo` archive for your platform.
 
 ---
@@ -234,9 +234,11 @@ $ curl -i http://todo-api.spkane.org:8080/
   * or where ever you downloaded the archive to.
 
 ```
-$ unzip terraform-provider-todo-*.zip
+$ tar -xvzf terraform-provider-todo-*.tar.gz
+$ mkdir -p \
+    $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_${ARCH}/
 $ mv terraform-provider-todo \
-    $HOME/class-terraform-starting/todo-for-terraform/terraform-tests/
+    $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_${ARCH}/
 ```
 
 ---
