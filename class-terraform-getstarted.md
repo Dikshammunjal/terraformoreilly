@@ -303,7 +303,7 @@ curl -i http://todo-api.spkane.org:8080/ -X POST \
 # Apply Terraform Code
 
 * `terraform init`
-* `terrraform apply`
+* `terraform apply`
   * **Plan**: 10 to add, 0 to change, 0 to destroy.
     * If all looks good, answer: `yes`
 
@@ -399,7 +399,7 @@ $ terraform state show todo.test1[4]
 
 # Apply The Updates
 
-* `terrraform apply`
+* `terraform apply`
   * **Plan**: 0 to add, 4 to change, 2 to destroy.
     * If all looks good, answer: `yes`
 
