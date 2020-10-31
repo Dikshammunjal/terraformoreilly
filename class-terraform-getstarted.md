@@ -319,7 +319,7 @@ $ ./terraform-provider-todo
 
 * Click `Cancel`
 
---
+---
 
 # macOS Catalina+ Notice 2 of 2
 
