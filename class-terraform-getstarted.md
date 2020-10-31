@@ -114,7 +114,7 @@ Proxies can interfere with some activities if they are not configured correctly.
 
 ---
 
-# Version 0.12
+# Version 0.12+
 
 * Version 0.12 of terraform was a major release that included many significant improvements, but also included some breaking changes.
 * Be aware that code written for terraform 0.12 is not compatible with earlier releases and that in general, you should not use not use older terraform binaries with existing terraform managed infrastructure.
@@ -207,11 +207,24 @@ $ cd terraform-infrastructure
 
 # Test the Todo API
 
-```
+```shell
 $ curl -i http://todo-api.spkane.org:8080/
 $ curl -i http://todo-api.spkane.org:8080/ -X POST \
     -H 'Content-Type: application/spkane.todo-list.v1+json' \
     -d '{"description":"go shopping","completed":false}'
+# In Windows Powershell try this for the POST command:
+#   curl.exe -i -X POST `
+#   -H 'Content-Type: application/spkane.todo-list.v1+json' `
+#   --% `
+#   -d "{\"description\":\"go shopping\",\"completed\":false}" `
+#   http://127.0.0.1:8080/
+```
+
+---
+
+# More Todo API testing
+
+```shell
 $ curl -i http://todo-api.spkane.org:8080/
 $ curl -i http://todo-api.spkane.org:8080/1 -X DELETE \
     -H 'Content-Type: application/spkane.todo-list.v1+json'
@@ -233,13 +246,15 @@ $ curl -i http://todo-api.spkane.org:8080/
 * `cd $HOME/Downloads`
   * or where ever you downloaded the archive to.
 
-```
+```shell
 $ tar -xvzf terraform-provider-todo-*.tar.gz
 $ mkdir -p \
     $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_${ARCH}/
 $ mv terraform-provider-todo \
     $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_${ARCH}/
 ```
+
+* e.g. `darwin_amd64`, `linux_amd64`, or `windows_amd64`
 
 ---
 
@@ -281,7 +296,7 @@ $ mv terraform-provider-todo \
 
 * We need a todo with ID 1 to read in as an example data source:
 
-```
+```shell
 curl -i http://todo-api.spkane.org:8080/
 curl -i http://todo-api.spkane.org:8080/ -X POST \
     -H 'Content-Type: application/spkane.todo-list.v1+json' \
@@ -421,7 +436,7 @@ $ terraform state show todo.test1[4]
 
 * Create a new todo by hand:
 
-```
+```shell
 $ curl -i http://todo-api.spkane.org:8080/ -X POST \
     -H 'Content-Type: application/spkane.todo-list.v1+json' \
     -d '{"description":"Imported Todo","completed":false}'
@@ -615,7 +630,7 @@ output "second_series_ids" {
 
 * In this example we are using the `aws` and `ns1` providers.
   * https://github.com/terraform-providers/terraform-provider-aws
-  * https://github.com/terraform-providers/terraform-provider-ns1
+  * https://github.com/ns1-terraform/terraform-provider-ns1
 
 ---
 
