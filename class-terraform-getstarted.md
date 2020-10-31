@@ -249,9 +249,11 @@ $ curl -i http://todo-api.spkane.org:8080/
 ```shell
 $ tar -xvzf terraform-provider-todo-*.tar.gz
 $ mkdir -p \
-    $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_${ARCH}/
+    $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
+1.1.0/${OS}_${ARCH}/
 $ mv terraform-provider-todo \
-    $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_${ARCH}/
+    $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
+1.1.0/${OS}_${ARCH}/
 ```
 
 * e.g. `darwin_amd64`, `linux_amd64`, or `windows_amd64`
