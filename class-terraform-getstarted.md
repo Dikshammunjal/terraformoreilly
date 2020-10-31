@@ -307,15 +307,26 @@ curl -i http://todo-api.spkane.org:8080/ -X POST \
 
 ---
 
-# macOS Catalina+ Notice
+# macOS Catalina+ Notice 1 of 2
 
 * You may need to whitelist the provider binary, since it is not signed.
-  * Run `./terraform-provider-todo`
-    * Click `Cancel`
-  * Go to `System Preferences` → `Security & Privacy` → `General`
-    * Click `Allow Anyway`
-  * Run `./terraform-provider-todo`
-    * Click `Open`
+
+```shell 
+$ cd $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
+1.1.0/${OS}_${ARCH}/
+$ ./terraform-provider-todo
+```
+
+* Click `Cancel`
+
+--
+
+# macOS Catalina+ Notice 2 of 2
+
+* Go to `System Preferences` → `Security & Privacy` → `General`
+  * Click `Allow Anyway`
+* Run `./terraform-provider-todo`
+  * Click `Open`
 
 ---
 
