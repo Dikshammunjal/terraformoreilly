@@ -37,15 +37,15 @@ theme: spkane
 
 ---
 
-# Prerequisites
+# Prerequisites (1 of 2)
 * A recent computer and OS
-  * Recent Linux, OS X, or Windows 10
+  * Recent/Stable Linux, OS X, or Windows 10
   * Reliable and fast internet connectivity
 * Hashicorp Terraform
 
 ---
 
-# Prerequisites
+# Prerequisites  (2 of 2)
 * A graphical web browser
 * A text editor
 * A software package manager
