@@ -67,12 +67,14 @@ This class was written from a largely Unix based perspective, but everything can
 ---
 
 # A Note About Proxies
+
 Proxies can interfere with some activities if they are not configured correctly.
 
 ---
 
 # Instructor Environment
-* **Operating System**: macOS (v10.15.X+)
+
+* **Operating System**: macOS (v11.0.X+)
 * **Terminal**: iTerm2 (Build 3.X.X+) - https://www.iterm2.com/
 * **Browser Extension**: Dark Reader - https://darkreader.org/
 * **Shell Prompt Theme**: Starship - https://starship.rs/
