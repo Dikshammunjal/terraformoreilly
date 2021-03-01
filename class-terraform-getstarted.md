@@ -74,9 +74,8 @@ Proxies can interfere with some activities if they are not configured correctly.
 
 # Instructor Environment
 
-* **Operating System**: macOS (v11.0.X+)
+* **Operating System**: macOS (v11.2.X+)
 * **Terminal**: iTerm2 (Build 3.X.X+) - https://www.iterm2.com/
-* **Browser Extension**: Dark Reader - https://darkreader.org/
 * **Shell Prompt Theme**: Starship - https://starship.rs/
 * **Shell Prompt Font**: Fira Code - https://github.com/tonsky/FiraCode
 * **Text Editor**: Visual Studio Code (v1.X.X+) - https://code.visualstudio.com/
