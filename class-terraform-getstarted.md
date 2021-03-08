@@ -589,11 +589,11 @@ module "series-data" {
 
 ```terraform
 output "first_series_ids" {
-  value = "${module.series-data.first_series_ids}"
+  value = module.series-data.first_series_ids
 }
 
 output "second_series_ids" {
-  value = "${module.series-data.second_series_ids}"
+  value = module.series-data.second_series_ids
 }
 ```
 
