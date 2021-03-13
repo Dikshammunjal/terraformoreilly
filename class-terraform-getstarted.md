@@ -20,9 +20,11 @@ theme: spkane
 <!-- _class: lead -->
 
 # Instructor
-# Sean P. Kane
+# [Sean P. Kane](https://www.linkedin.com/in/spkane/)
 
-### @spkane
+### [@spkane](https://twitter.com/spkane)
+##### [@superorbital_io](https://twitter.com/superorbital_io)
+![height:1.3cm](images/superorbital-horizontal-darkthemes.png)
 
 ![bg right](images/skane-2018-side-black-cropped.jpg)
 
@@ -56,7 +58,7 @@ theme: spkane
 ---
 
 # A Note for Windows Users
-This class was written from a largely Unix based perspective, but everything can be made to work in Windows with very little effort.
+ Terminal commands reflect the Unix bash shell. PowerShell users will need to adjust the commands.
 * Unix Variables
   * `export MY_VAR=test`
   * `echo ${MY_VAR}`
@@ -69,6 +71,10 @@ This class was written from a largely Unix based perspective, but everything can
 # A Note About Proxies
 
 Proxies can interfere with some activities if they are not configured correctly.
+
+* [Terraform](https://stackoverflow.com/a/65946275)
+* [Docker](https://dev.to/mcastellin/use-docker-with-proxy-servers-tutorial-10gg)
+* [Docker-Compose](https://stackoverflow.com/questions/34990458/docker-compose-build-and-http-proxy)
 
 ---
 
@@ -141,27 +147,7 @@ $ cd todo-for-terraform
 $ cd terraform-infrastructure
 ```
 
----
-
-# HCL & JSON
-
-* Hashicorp Configuration Language v2
-  * https://github.com/hashicorp/hcl/tree/hcl2
-* HCL is a JSON-compatible configuration language written by Hashicorp to be machine and human friendly.
-
-* HCL is intended to provide a less-verbose JSON style configuration language that supports comments, while also providing humans with a language that is easier to approach than YAML.
-
----
-
-# Core Components
-
-* Terraform & Backends
-* Providers
-* Variables
-* Resources
-* Data Sources
-* Outputs
-* State File
+* Note: Students **CAN NOT** run `terraform` in the `terraform-infrastructure` directory. This is for instructor demonstration.
 
 ---
 
@@ -193,6 +179,28 @@ $ cd terraform-infrastructure
 # The State File
 
 * `terraform state list`
+
+---
+
+# HCL & JSON
+
+* Hashicorp Configuration Language v2
+  * https://github.com/hashicorp/hcl/tree/hcl2
+* HCL is a JSON-compatible configuration language written by Hashicorp to be machine and human friendly.
+
+* HCL is intended to provide a less-verbose JSON style configuration language that supports comments, while also providing humans with a language that is easier to approach than YAML.
+
+---
+
+# Core Components
+
+* Terraform & Backends
+* Providers
+* Variables
+* Resources
+* Data Sources
+* Outputs
+* State File
 
 ---
 
@@ -242,6 +250,18 @@ $ curl -i http://todo-api.spkane.org:8080/
 
 ---
 
+# Notes about Custom Providers
+
+* Install Directory:
+  * Unix: `~/.terraform.d/plugins/${OS}_{ARCH}`
+  * Windows: `%APPDATA%\terraform.d\plugins\${OS}_{ARCH}`
+
+${OS} and ${ARCH} **ARE NOT** predefined on your system. You need to replace those with something like:
+
+* `darwin_amd64`, `linux_amd64`, or `windows_amd64`
+
+---
+
 # Install the Todo Provider
 
 * `cd $HOME/Downloads`
@@ -256,8 +276,6 @@ $ mv terraform-provider-todo \
     $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
 1.1.0/${OS}_${ARCH}/
 ```
-
-* e.g. `darwin_amd64`, `linux_amd64`, or `windows_amd64`
 
 ---
 
@@ -775,6 +793,11 @@ Thank you!
 <!-- _class: lead -->
 
 # Any Questions?
+<br></br>
+### [Sean P. Kane](https://www.linkedin.com/in/spkane/)
+![height:2cm](images/superorbital-horizontal-darkthemes.png)
+##### Providing stellar Kubernetes engineering and workshops.
+##### https://superorbital.io/contact/
 
 ---
 
