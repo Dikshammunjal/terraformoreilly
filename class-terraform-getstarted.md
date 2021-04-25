@@ -30,7 +30,7 @@ theme: spkane
 
 ---
 
-<!-- footer: Copyright © 2019-2020, Sean P. Kane (@spkane) -->
+<!-- footer: Copyright © 2019-2021, Sean P. Kane (@spkane) -->
 <!-- paginate: true -->
 <!-- _class: lead -->
 
@@ -41,7 +41,7 @@ theme: spkane
 
 # Prerequisites (1 of 2)
 * A recent computer and OS
-  * Recent/Stable Linux, OS X, or Windows 10
+  * Recent/Stable Linux, macOS, or Windows 10
   * Reliable and fast internet connectivity
 * Hashicorp Terraform
 
@@ -57,7 +57,7 @@ theme: spkane
 
 ---
 
-# A Note for Windows Users
+# A Note for Powershell Users
  Terminal commands reflect the Unix bash shell. PowerShell users will need to adjust the commands.
 * Unix Variables
   * `export MY_VAR=test`
@@ -65,6 +65,15 @@ theme: spkane
 * Windows 10 Variables (powershell)
   * `$env:my_var = "test"`
   * `Get-ChildItem Env:my_var`
+
+---
+
+# Translation Key
+
+'/' - Unix Shell Line Continuation
+'`' - Powershell Line Continuation (sort of)
+
+${MY_VAR} - Is generally a place holder in the slides.
 
 ---
 
