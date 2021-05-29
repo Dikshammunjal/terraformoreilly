@@ -262,8 +262,8 @@ $ curl -i http://todo-api.spkane.org:8080/
 # Notes about Custom Providers
 
 * Install Directory:
-  * Unix: `~/.terraform.d/plugins/${OS}_{ARCH}`
-  * Windows: `%APPDATA%\terraform.d\plugins\${OS}_{ARCH}`
+  * Unix: `~/.terraform.d/plugins/terraform.spkane.org/spkane/todo/1.1.0/${OS}_{ARCH}/`
+  * Windows: `%APPDATA%\Roaming\terraform.d\plugins\terraform.spkane.org\spkane\todo\1.1.0\${OS}_{ARCH}\`
 
 ${OS} and ${ARCH} **ARE NOT** predefined on your system. You need to replace those with something like:
 
@@ -285,6 +285,29 @@ $ mv terraform-provider-todo \
     $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
 1.1.0/${OS}_${ARCH}/
 ```
+
+---
+
+# macOS Catalina+ Notice 1 of 2
+
+* You may need to whitelist the provider binary, since it is not signed.
+
+```shell 
+$ cd $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
+1.1.0/${OS}_${ARCH}/
+$ ./terraform-provider-todo
+```
+
+* Click `Cancel`
+
+---
+
+# macOS Catalina+ Notice 2 of 2
+
+* Go to `System Preferences` → `Security & Privacy` → `General`
+  * Click `Allow Anyway`
+* Run `./terraform-provider-todo`
+  * Click `Open`
 
 ---
 
@@ -332,29 +355,6 @@ curl -i http://todo-api.spkane.org:8080/ -X POST \
     -H 'Content-Type: application/spkane.todo-list.v1+json' \
     -d '{"description":"go shopping","completed":false}'
 ```
-
----
-
-# macOS Catalina+ Notice 1 of 2
-
-* You may need to whitelist the provider binary, since it is not signed.
-
-```shell 
-$ cd $HOME/.terraform.d/plugins/terraform.spkane.org/spkane/todo/\
-1.1.0/${OS}_${ARCH}/
-$ ./terraform-provider-todo
-```
-
-* Click `Cancel`
-
----
-
-# macOS Catalina+ Notice 2 of 2
-
-* Go to `System Preferences` → `Security & Privacy` → `General`
-  * Click `Allow Anyway`
-* Run `./terraform-provider-todo`
-  * Click `Open`
 
 ---
 
